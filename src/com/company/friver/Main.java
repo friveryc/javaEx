@@ -13,6 +13,10 @@ public class Main {
     }
 }
 
+/**
+ * 人类
+ * 这是添加的说明
+ */
 class Person {
     String name;
     int age;
