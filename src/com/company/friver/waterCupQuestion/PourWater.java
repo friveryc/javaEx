@@ -3,8 +3,11 @@ package com.company.friver.waterCupQuestion;
 public class PourWater {
     public static void main(String[] args) {
         Glass glass1 = new Glass("马克杯", 10);
-        Glass glass2 = new Glass("玻璃杯", 8,6);
-        pour(glass2,glass1);
+        Glass glass2 = new Glass("玻璃杯", 8, 6);
+//        pour(glass2, glass1);
+        glass1.glassStatus();
+        glass2.glassStatus();
+        glass2.reduceWater(glass1.addWater(glass2.getWaterYield()));
         glass1.glassStatus();
         glass2.glassStatus();
 
@@ -25,9 +28,9 @@ public class PourWater {
             glass2.setWaterYield(glass1.getWaterYield() + glass2.getWaterYield());
             glass1.setWaterYield(0);
 
-        }else{
+        } else {
             glass2.setWaterYield(glass2.getCapacity());
-            glass1.setWaterYield(glass1.getWaterYield()+(glass2.getCapacity()- glass2.getWaterYield()));
+            glass1.setWaterYield(glass1.getWaterYield() + (glass2.getCapacity() - glass2.getWaterYield()));
         }
         glass1.glassStatus();
         glass2.glassStatus();
@@ -76,5 +79,30 @@ class Glass {
 
     public void glassStatus() {
         System.out.println(name + "的容量:" + capacity + " 水量:" + waterYield);
+    }
+
+    /**
+     *
+     * @param waterYield
+     * @return 返回添加了多少水
+     */
+    public double addWater(double waterYield) {
+        if (this.waterYield >= this.capacity) {
+            System.out.println(this.name + "无法进水");
+            return 0;
+        } else if (waterYield > this.capacity - this.waterYield) {
+            this.waterYield = this.capacity;
+            System.out.println(this.name + "进水" + (this.capacity - this.waterYield));
+            return waterYield - (this.capacity - this.waterYield);
+        } else {
+            System.out.println(this.name + "进水" + waterYield);
+            this.waterYield += waterYield;
+            return waterYield;
+        }
+    }
+
+    public void reduceWater(double waterYield) {
+        this.waterYield -= waterYield;
+        System.out.println(this.name+"出水"+waterYield);
     }
 }
